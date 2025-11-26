@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Bíblico </title>
+    <title>Kit Pro3 – Emagrecimento 360°</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -11,42 +15,108 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #10B981;
+            --primary-light: #34D399;
+            --primary-dark: #059669;
+            --secondary: #3B82F6;
+            --accent: #F59E0B;
+            --background: #F3F4F6;
+            --foreground: #111827;
+            --card: #FFFFFF;
+            --border: #E5E7EB;
+            --muted: #F9FAFB;
+            --muted-foreground: #6B7280;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--background);
+            color: var(--foreground);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            line-height: 1.6;
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
         }
 
         .container {
-            max-width: 600px;
             width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .header {
+        header {
+            padding: 1rem;
             text-align: center;
-            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: var(--card);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            z-index: 100;
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            color: #1e1b4b;
-            margin-bottom: 10px;
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            scroll-behavior: smooth;
         }
 
-        .header p {
-            font-size: 1.1rem;
-            color: #4f46e5;
+        nav {
+            height: 5rem;
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 0.75rem;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+            z-index: 100;
+            overflow-x: auto;
         }
 
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+        nav button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--muted-foreground);
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        nav button:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        nav button.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        nav button svg {
+            width: 1.375rem;
+            height: 1.375rem;
+        }
+
+        .tab-content {
             animation: fadeIn 0.3s ease-in;
         }
 
@@ -61,212 +131,105 @@
             }
         }
 
-        .hidden {
-            display: none;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Intro Screen */
-        .intro-content h2 {
-            font-size: 1.8rem;
-            color: #1e1b4b;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .intro-content p {
-            color: #6b7280;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .info-box {
-            background: #dbeafe;
-            border-left: 4px solid #4f46e5;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-
-        .info-box h3 {
-            color: #1e1b4b;
-            margin-bottom: 12px;
-            font-size: 1rem;
-        }
-
-        .info-box ul {
-            list-style: none;
-        }
-
-        .info-box li {
-            color: #374151;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .info-box li:before {
-            content: "✓ ";
-            color: #4f46e5;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        /* Quiz Screen */
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-
-        .quiz-header .question-counter {
-            color: #4f46e5;
-            font-weight: 600;
-        }
-
-        .quiz-header .score {
-            color: #1e1b4b;
-            font-weight: bold;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #e5e7eb;
-            border-radius: 3px;
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4f46e5, #6366f1);
-            transition: width 0.3s ease;
-        }
-
-        .question-title {
-            font-size: 1.3rem;
-            color: #1e1b4b;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        .options-container {
+        .space-y-4 {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 1rem;
         }
 
-        .option {
+        .space-y-6 {
             display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .grid-2 img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .grid-2 img:hover {
+            transform: scale(1.02);
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary);
+        }
+
+        .card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .card p {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-flex;
             align-items: center;
-            padding: 15px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        .option:hover {
-            border-color: #a5b4fc;
-            background: #f8fafc;
-        }
-
-        .option input[type="radio"] {
-            margin-right: 15px;
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-            accent-color: #4f46e5;
-        }
-
-        .option label {
-            cursor: pointer;
-            flex: 1;
-            color: #374151;
-            font-size: 1rem;
-        }
-
-        .option.selected {
-            border-color: #4f46e5;
-            background: #eef2ff;
-        }
-
-        .result-message {
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .result-message.correct {
-            background: #dcfce7;
-            border: 2px solid #86efac;
-        }
-
-        .result-message.incorrect {
-            background: #fee2e2;
-            border: 2px solid #fca5a5;
-        }
-
-        .result-message .icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .result-message .content h4 {
-            margin-bottom: 4px;
-            font-size: 1rem;
-        }
-
-        .result-message.correct h4 {
-            color: #166534;
-        }
-
-        .result-message.incorrect h4 {
-            color: #991b1b;
-        }
-
-        .result-message.correct p {
-            color: #15803d;
-            font-size: 0.9rem;
-        }
-
-        .result-message.incorrect p {
-            color: #7f1d1d;
-            font-size: 0.9rem;
-        }
-
-        /* Buttons */
-        .button-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 25px;
-        }
-
-        button {
-            padding: 12px 24px;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 0.75rem;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
-            flex: 1;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            width: 100%;
+            min-height: 3rem;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
         }
 
         .btn-primary:disabled {
@@ -275,709 +238,1387 @@
         }
 
         .btn-secondary {
-            background: white;
-            color: #4f46e5;
-            border: 2px solid #4f46e5;
-        }
-
-        .btn-secondary:hover {
-            background: #eef2ff;
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #10b981, #34d399);
+            background: linear-gradient(135deg, var(--secondary) 0%, #60A5FA 100%);
             color: white;
         }
 
-        .btn-success:hover {
+        .btn-secondary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
         }
 
-        .btn-full {
-            width: 100%;
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, #FBBF24 100%);
+            color: white;
         }
 
-        /* Results Screen */
-        .results-content {
-            text-align: center;
-        }
-
-        .results-content h2 {
-            font-size: 1.8rem;
-            color: #1e1b4b;
-            margin-bottom: 30px;
-        }
-
-        .score-display {
-            font-size: 4rem;
-            font-weight: bold;
-            color: #4f46e5;
-            margin-bottom: 15px;
-        }
-
-        .score-label {
-            font-size: 1.2rem;
-            color: #1e1b4b;
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--primary-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
             font-weight: 600;
-            margin-bottom: 10px;
         }
 
-        .score-max {
-            font-size: 0.9rem;
-            color: #4f46e5;
-            margin-bottom: 25px;
+        .hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            animation: slideUp 0.5s ease-out;
         }
 
-        .results-summary {
-            background: #eef2ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
+        .hero h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .results-summary p {
-            color: #374151;
+        .hero p {
+            color: var(--muted-foreground);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary) 100%);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .modulo-card {
+            background: var(--card);
+            border-left: 4px solid var(--primary);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .modulo-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .modulo-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .modulo-card p {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .benefit-card {
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .benefit-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .benefit-card.green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .benefit-card.blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .benefit-card.amber {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-card p {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            line-height: 1.5;
+        }
+
+        .testimonial {
+            background: var(--card);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            font-weight: 600;
+        }
+
+        .stars {
+            color: var(--warning);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .daily-task {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .daily-task h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .daily-task p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+        }
+
+        .day-counter {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            width: 30%;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        /* ESTILOS DO QUIZ */
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-progress {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            transition: width 0.5s ease;
+        }
+
+        .quiz-progress-text {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            text-align: right;
+        }
+
+        .quiz-question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+            line-height: 1.4;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-option {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 1rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             font-size: 0.95rem;
         }
 
-        .results-summary strong {
-            color: #1e1b4b;
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background: rgba(16, 185, 129, 0.05);
+            transform: translateX(4px);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(16, 185, 129, 0.1);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .quiz-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-buttons button {
+            flex: 1;
+        }
+
+        .quiz-result {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .quiz-result h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .quiz-result-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            font-size: 1.125rem;
+        }
+
+        .quiz-result-text {
+            font-size: 1rem;
+            color: var(--muted-foreground);
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .quiz-result-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .quiz-result-stat {
+            background: var(--card);
+            padding: 1rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .quiz-result-stat-label {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-result-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--foreground);
+        }
+
+        /* ESTILOS DA PÁGINA DE VENDA */
+        .checkout-section {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .checkout-hero {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .checkout-hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .checkout-hero .subtitle {
+            font-size: 1.125rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .rating-text {
+            color: var(--muted-foreground);
+            font-size: 0.95rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card {
+            border: 2px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            border-width: 2px;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MELHOR VALOR';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 0.25rem;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .pricing-card .plan-type {
+            font-size: 0.85rem;
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+        }
+
+        .original-price {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-per-unit {
+            font-size: 0.85rem;
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+        }
+
+        .buy-btn-checkout {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .buy-btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .buy-btn-checkout.secondary {
+            background: var(--border);
+            color: var(--foreground);
+        }
+
+        .buy-btn-checkout.secondary:hover {
+            background: #d1d5db;
+        }
+
+        .cashback-banner {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+            border: 1px solid #fcd34d;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cashback-banner p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .cashback-banner .subtext {
+            font-size: 0.9rem;
+            color: var(--muted-foreground);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        .text-muted {
+            color: var(--muted-foreground);
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .font-bold {
             font-weight: 700;
         }
 
-        /* Store Screen */
-        .store-header {
-            margin-bottom: 25px;
+        .font-semibold {
+            font-weight: 600;
         }
 
-        .store-header h2 {
+        .notification {
+            position: fixed;
+            bottom: 6rem;
+            left: 1rem;
+            right: 1rem;
+            background: var(--card);
+            border-left: 4px solid var(--primary);
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .notification-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
             font-size: 1.5rem;
-            color: #1e1b4b;
-            margin-bottom: 5px;
+            color: var(--muted-foreground);
         }
 
-        .store-header p {
-            color: #6b7280;
-        }
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 1.5rem;
+            }
 
-        .bibles-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+            nav {
+                height: 4.5rem;
+            }
 
-        @media (max-width: 600px) {
-            .bibles-grid {
+            nav button {
+                font-size: 0.65rem;
+            }
+
+            nav button svg {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 1.5rem;
+            }
+
+            .quiz-result-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        .bible-card {
-            padding: 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: white;
-            text-align: center;
+        main::-webkit-scrollbar {
+            width: 6px;
         }
 
-        .bible-card:hover {
-            border-color: #a5b4fc;
+        main::-webkit-scrollbar-track {
+            background: var(--muted);
         }
 
-        .bible-card.affordable {
-            cursor: pointer;
+        main::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
         }
 
-        .bible-card.not-affordable {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .bible-card.selected {
-            border-color: #4f46e5;
-            background: #eef2ff;
-        }
-
-        .bible-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .bible-name {
-            font-weight: 600;
-            color: #1e1b4b;
-            margin-bottom: 5px;
-            font-size: 0.95rem;
-        }
-
-        .bible-description {
-            font-size: 0.8rem;
-            color: #4f46e5;
-            margin-bottom: 10px;
-        }
-
-        .bible-cost {
-            font-weight: bold;
-            color: #4f46e5;
-            font-size: 0.9rem;
-        }
-
-        .bible-card.selected .bible-cost {
-            color: #4f46e5;
-        }
-
-        .bible-card.not-affordable .bible-cost {
-            color: #9ca3af;
-        }
-
-        .selected-indicator {
-            font-size: 0.8rem;
-            color: #4f46e5;
-            font-weight: 600;
-            margin-top: 8px;
-        }
-
-        .summary-card {
-            background: #eef2ff;
-            border: 2px solid #c7d2fe;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .summary-card h3 {
-            color: #1e1b4b;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            color: #374151;
-            font-size: 0.95rem;
-        }
-
-        .summary-item span:last-child {
-            font-weight: 600;
-            color: #4f46e5;
-        }
-
-        .summary-total {
-            border-top: 2px solid #c7d2fe;
-            padding-top: 12px;
-            margin-top: 12px;
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            color: #1e1b4b;
-        }
-
-        .summary-total span:last-child {
-            color: #10b981;
-        }
-
-        .summary-total.negative span:last-child {
-            color: #ef4444;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .card {
-                padding: 25px;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .question-title {
-                font-size: 1.1rem;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .score-display {
-                font-size: 3rem;
-            }
+        main::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>📘 Quiz Bíblico </h1>
-            <p>Teste seus conhecimentos sobre a Bíblia</p>
-        </div>
+        <header>🎯 Kit Pro3 – Emagrecimento 360°</header>
 
-        <!-- Intro Screen -->
-        <div id="intro-screen" class="card">
-            <div class="intro-content">
-                <h2>Bem-vindo ao Quiz Bíblico!</h2>
-                <p>Responda 10 perguntas e ganhe pontos</p>
-                <div class="info-box">
-                    <h3>Como funciona:</h3>
-                    <ul>
-                        <li>Responda 10 perguntas sobre histórias bíblicas</li>
-                        <li>Ganhe 10 pontos por cada resposta correta</li>
-                        <li>Use seus pontos para resgatar diferentes versões de Bíblias</li>
-                        <li>Máximo de 100 pontos possíveis</li>
-                    </ul>
-                </div>
-                <button class="btn-primary btn-full" onclick="startQuiz()">Começar Quiz</button>
-            </div>
-        </div>
+        <main id="main-content">
+            <!-- Conteúdo será inserido aqui -->
+        </main>
 
-        <!-- Quiz Screen -->
-        <div id="quiz-screen" class="card hidden">
-            <div class="quiz-header">
-                <span class="question-counter">Pergunta <span id="current-question">1</span> de 10</span>
-                <span class="score">Pontos: <span id="current-score">0</span></span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill" style="width: 10%"></div>
-            </div>
-            <div class="question-title" id="question-text"></div>
-            <div class="options-container" id="options-container"></div>
-            <div id="result-message" class="result-message hidden"></div>
-            <div class="button-group" id="quiz-buttons">
-                <button class="btn-primary" onclick="submitAnswer()">Confirmar Resposta</button>
-            </div>
-        </div>
+        <nav id="navbar">
+            <!-- Botões serão inseridos aqui -->
+        </nav>
 
-        <!-- Results Screen -->
-        <div id="results-screen" class="card hidden">
-            <div class="results-content">
-                <h2>Quiz Finalizado!</h2>
-                <div class="score-display" id="final-score">0</div>
-                <div class="score-label">Pontos conquistados</div>
-                <div class="score-max">Máximo possível: 100 pontos</div>
-                <div class="results-summary">
-                    <p>Você acertou <strong id="correct-count">0</strong> de <strong>10</strong> perguntas.</p>
-                </div>
-                <button class="btn-primary btn-full" onclick="goToStore()">Ir para Loja de Bíblias</button>
-            </div>
-        </div>
-
-        <!-- Store Screen -->
-        <div id="store-screen" class="card hidden">
-            <div class="store-header">
-                <h2>Loja de Bíblias</h2>
-                <p>Use seus <span id="store-points">0</span> pontos para resgatar uma Bíblia</p>
-            </div>
-            <div class="bibles-grid" id="bibles-grid"></div>
-            <div id="summary-container"></div>
-            <button class="btn-primary btn-full" onclick="finishStore()">Voltar ao Início</button>
-        </div>
+        <div id="notification-container"></div>
     </div>
 
     <script>
-        // Quiz Data
+        // ===== DADOS DO QUIZ =====
         const quizQuestions = [
             {
                 id: 1,
-                question: "Quem construiu a arca para sobreviver ao dilúvio?",
-                options: ["Adão", "Noé", "Abraão", "Moisés"],
-                correctAnswer: 1,
-                points: 10
+                question: "Quando você acorda de manhã, como se sente em relação à sua energia?",
+                options: [
+                    { text: "Acordo cansada(o), sem disposição, como se não tivesse dormido", value: 3, category: "metabolic" },
+                    { text: "Às vezes acordo bem, outras vezes muito cansada(o)", value: 2, category: "hormonal" },
+                    { text: "Acordo com energia e disposição na maioria dos dias", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 2,
-                question: "Quantos dias Deus levou para criar o mundo?",
-                options: ["Três dias", "Cinco dias", "Seis dias", "Sete dias"],
-                correctAnswer: 2,
-                points: 10
+                question: "Durante o dia, você sente vontade incontrolável de comer doces ou carboidratos?",
+                options: [
+                    { text: "Sim, isso acontece quase todo dia, especialmente à tarde ou à noite", value: 3, category: "emotional" },
+                    { text: "Às vezes, dependendo do meu nível de estresse ou ansiedade", value: 2, category: "emotional" },
+                    { text: "Não, consigo controlar bem minha alimentação", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 3,
-                question: "Quem foi engolido por um grande peixe?",
-                options: ["Jonas", "Pedro", "Paulo", "Tiago"],
-                correctAnswer: 0,
-                points: 10
+                question: "Como está seu intestino ultimamente?",
+                options: [
+                    { text: "Muito irregular, passo dias sem ir ao banheiro ou tenho diarreia frequente", value: 3, category: "digestive" },
+                    { text: "Funciona, mas sinto inchaço e desconforto com frequência", value: 2, category: "digestive" },
+                    { text: "Funciona normalmente todos os dias", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 4,
-                question: "Qual rei foi conhecido por sua grande sabedoria?",
-                options: ["Davi", "Salomão", "Herodes", "Saul"],
-                correctAnswer: 1,
-                points: 10
+                question: "Você se sente inchada(o) com frequência, especialmente na barriga?",
+                options: [
+                    { text: "Sim, acordo e durmo inchada(o), parece que nada desincha", value: 3, category: "digestive" },
+                    { text: "Sim, principalmente depois das refeições ou no final do dia", value: 2, category: "digestive" },
+                    { text: "Raramente me sinto inchada(o)", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 5,
-                question: "Quem traiu Jesus por 30 moedas de prata?",
-                options: ["Pedro", "João", "Judas Iscariotes", "Tomé"],
-                correctAnswer: 2,
-                points: 10
+                question: "Como você descreveria sua relação com a comida quando está estressada(o)?",
+                options: [
+                    { text: "Como muito mais, é minha válvula de escape emocional", value: 3, category: "emotional" },
+                    { text: "Às vezes descontar na comida, outras vezes perco o apetite", value: 2, category: "emotional" },
+                    { text: "Consigo manter minha alimentação equilibrada mesmo sob estresse", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 6,
-                question: "Qual era o nome dos três jovens lançados na fornalha ardente?",
-                options: ["Sadraque, Mesaque e Abednego", "Miquéias, Gabriel e Rafael", "Elias, Eliseu e Enoque", "Sansão, Gideão e Jefté"],
-                correctAnswer: 0,
-                points: 10
+                question: "Você já tentou várias dietas mas sempre volta a ganhar o peso perdido?",
+                options: [
+                    { text: "Sim, já perdi e ganhei peso várias vezes, é um ciclo sem fim", value: 3, category: "metabolic" },
+                    { text: "Sim, mas consigo manter por um tempo antes de voltar", value: 2, category: "behavioral" },
+                    { text: "Não, quando emagreço consigo manter o peso", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 7,
-                question: "Em qual livro da Bíblia encontramos os Dez Mandamentos pela primeira vez?",
-                options: ["Gênesis", "Êxodo", "Levítico", "Números"],
-                correctAnswer: 1,
-                points: 10
+                question: "Como está seu sono ultimamente?",
+                options: [
+                    { text: "Durmo mal, acordo várias vezes ou tenho insônia frequente", value: 3, category: "hormonal" },
+                    { text: "Durmo, mas acordo cansada(o) ou com o sono não reparador", value: 2, category: "hormonal" },
+                    { text: "Durmo bem e acordo descansada(o)", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 8,
-                question: "Quem matou o gigante Golias?",
-                options: ["Sansão", "Davi", "Jônatas", "Saul"],
-                correctAnswer: 1,
-                points: 10
+                question: "Você sente que seu metabolismo está lento, mesmo comendo pouco?",
+                options: [
+                    { text: "Sim, como muito pouco e ainda assim não emagreço", value: 3, category: "metabolic" },
+                    { text: "Às vezes sinto que meu corpo não responde como antes", value: 2, category: "metabolic" },
+                    { text: "Não, sinto que meu metabolismo funciona bem", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 9,
-                question: "Qual apóstolo negou Jesus três vezes?",
-                options: ["João", "Tiago", "Pedro", "André"],
-                correctAnswer: 2,
-                points: 10
+                question: "Você tem histórico de alterações hormonais?",
+                options: [
+                    { text: "Sim, tenho diagnóstico ou suspeita de problemas hormonais", value: 3, category: "hormonal" },
+                    { text: "Não tenho diagnóstico, mas sinto sintomas como irregularidade menstrual", value: 2, category: "hormonal" },
+                    { text: "Não, meus hormônios estão equilibrados", value: 1, category: "behavioral" }
+                ]
             },
             {
                 id: 10,
-                question: "Qual foi o primeiro milagre de Jesus registrado na Bíblia?",
-                options: ["Curar um leproso", "Alimentar os cinco mil", "Transformar água em vinho nas bodas de Caná", "Ressuscitar Lázaro"],
-                correctAnswer: 2,
-                points: 10
+                question: "Como você se sente em relação ao seu corpo hoje?",
+                options: [
+                    { text: "Frustrada(o) e sem esperança, já tentei de tudo e nada funciona", value: 3, category: "emotional" },
+                    { text: "Insatisfeita(o), mas ainda tenho esperança de mudar", value: 2, category: "emotional" },
+                    { text: "Estou em um bom momento e quero melhorar ainda mais", value: 1, category: "behavioral" }
+                ]
             }
         ];
 
-        const bibles = [
+        // ===== DADOS DA APLICAÇÃO =====
+        const tabs = [
+            { id: 'inicio', label: 'Início', icon: '🏠' },
+            { id: 'modulos', label: 'Módulos', icon: '📚' },
+            { id: 'kit', label: 'Kit Ajuda', icon: '🆘' },
+            { id: 'quiz', label: 'Quiz', icon: '✅' },
+            { id: 'depo', label: 'Depoimentos', icon: '💬' },
+            { id: 'checkout', label: 'Comprar', icon: '💳' },
+            { id: 'diario', label: 'Diário', icon: '📖' }
+        ];
+
+        const modulos = [
             {
-                id: 1,
-                name: "Bíblia King James",
-                description: "Tradução clássica em linguagem formal e solene",
-                cost: 30,
-                icon: "📕"
+                titulo: '1. Reset Metabólico',
+                descricao: 'Ative o processo de queima e reduza inchaço com fibras e suporte mineral. Seu metabolismo será reativado em 7 dias.'
             },
             {
-                id: 2,
-                name: "Bíblia NVI",
-                description: "Nova Versão Internacional - tradução clara e precisa",
-                cost: 40,
-                icon: "📗"
+                titulo: '2. Energia & Disposição',
+                descricao: 'Magnésio e cafeína auxiliam na resistência e na redução do cansaço. Sinta-se energizado o dia todo.'
             },
             {
-                id: 3,
-                name: "Bíblia Almeida",
-                description: "Tradução Almeida Corrigida - muito usada em igrejas",
-                cost: 35,
-                icon: "📘"
+                titulo: '3. Controle da Fome',
+                descricao: 'Cromo e fibras ajudam no equilíbrio glicêmico e saciedade. Controle real sobre seus desejos alimentares.'
             },
             {
-                id: 4,
-                name: "Bíblia The Message",
-                description: "Versão em linguagem contemporânea e acessível",
-                cost: 45,
-                icon: "📙"
-            },
-            {
-                id: 5,
-                name: "Bíblia de Estudo",
-                description: "Completa com notas, mapas e referências cruzadas",
-                cost: 50,
-                icon: "📓"
-            },
-            {
-                id: 6,
-                name: "Bíblia Infantil",
-                description: "Histórias bíblicas ilustradas para crianças",
-                cost: 25,
-                icon: "📔"
+                titulo: '4. Aceleração Inteligente',
+                descricao: 'Combinação completa do Kit para resultados progressivos. Máxima eficiência em 30 dias.'
             }
         ];
 
-        // State
-        let currentQuestion = 0;
-        let score = 0;
-        let answers = new Array(quizQuestions.length).fill(null);
-        let selectedAnswer = null;
-        let showResult = false;
-        let selectedBibles = [];
+        const beneficios = [
+            {
+                emoji: '🔥',
+                titulo: 'FitSlim – Acelera e Desincha',
+                descricao: 'Fibra Psyllium, Laranja Moro, Spirulina, Cafeína e Cromo trabalhando juntos para digestão, saciedade e mais resistência.',
+                classe: 'green'
+            },
+            {
+                emoji: '⚡',
+                titulo: 'Pro3Magnésio – Energia e Sono',
+                descricao: '3 tipos de magnésio para melhorar energia, reduzir fadiga, suportar músculos e regular sono.',
+                classe: 'blue'
+            },
+            {
+                emoji: '🍭',
+                titulo: 'Cromo – Controle Real da Fome',
+                descricao: 'Ajuda no controle de doces, reduz picos glicêmicos e aumenta saciedade de forma natural.',
+                classe: 'amber'
+            }
+        ];
 
-        // Screen Management
-        function showScreen(screenId) {
-            document.getElementById('intro-screen').classList.add('hidden');
-            document.getElementById('quiz-screen').classList.add('hidden');
-            document.getElementById('results-screen').classList.add('hidden');
-            document.getElementById('store-screen').classList.add('hidden');
-            document.getElementById(screenId).classList.remove('hidden');
-        }
+        const depoimentos = [
+            {
+                texto: 'Perdi 6kg em 30 dias! Não acreditava que era possível sem sofrer. O Kit Pro3 mudou minha vida!',
+                autor: 'Ana Silva',
+                stars: 5
+            },
+            {
+                texto: 'Mais energia e menos fome. Consegui controlar meus desejos por doce finalmente!',
+                autor: 'João Santos',
+                stars: 5
+            },
+            {
+                texto: 'Durmo melhor, acordo mais disposto e sinto meu corpo mais leve. Recomendo demais!',
+                autor: 'Maria Costa',
+                stars: 5
+            },
+            {
+                texto: 'Já tentei vários métodos, mas esse foi o único que funcionou de verdade. Muito satisfeito!',
+                autor: 'Carlos Oliveira',
+                stars: 5
+            }
+        ];
 
-        // Start Quiz
+        const tarefasDiarias = [
+            'Reduza açúcar e aumente água',
+            'Caminhe 30 minutos',
+            'Tome seu FitSlim com água',
+            'Durma 8 horas',
+            'Controle as porções',
+            'Faça exercício leve',
+            'Medite 10 minutos',
+            'Coma mais fibra',
+            'Evite alimentos processados',
+            'Beba chá verde',
+            'Faça alongamento',
+            'Registre seu peso',
+            'Coma devagar',
+            'Evite álcool',
+            'Durma cedo',
+            'Faça ioga',
+            'Beba água com limão',
+            'Coma proteína no café',
+            'Evite frituras',
+            'Respire profundamente',
+            'Faça uma caminhada',
+            'Beba magnésio à noite',
+            'Coma salada verde',
+            'Medite antes de dormir',
+            'Faça musculação leve',
+            'Beba água antes de comer',
+            'Coma frutas vermelhas',
+            'Faça pilates',
+            'Respire devagar',
+            'Durma sem celular'
+        ];
+
+        // ===== ESTADO DA APLICAÇÃO =====
+        let appState = {
+            currentTab: 'quiz',
+            currentDay: 1,
+            quizStarted: false,
+            quizCurrentQuestion: 0,
+            quizAnswers: [],
+            quizSelectedOption: null,
+            quizCompleted: false,
+            quizUserData: {
+                name: '',
+                age: 0,
+                weight: 0,
+                height: 0
+            },
+            quizResult: null
+        };
+
+        // ===== FUNÇÕES DO QUIZ =====
         function startQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            answers = new Array(quizQuestions.length).fill(null);
-            selectedAnswer = null;
-            showResult = false;
-            selectedBibles = [];
-            loadQuestion();
-            showScreen('quiz-screen');
+            appState.quizStarted = true;
+            appState.quizCurrentQuestion = 0;
+            appState.quizAnswers = [];
+            appState.quizSelectedOption = null;
+            renderQuizContent();
         }
 
-        // Load Question
-        function loadQuestion() {
-            const question = quizQuestions[currentQuestion];
-            document.getElementById('question-text').textContent = question.question;
-            document.getElementById('current-question').textContent = currentQuestion + 1;
-            document.getElementById('current-score').textContent = score;
-            
-            const progressPercent = ((currentQuestion + 1) / quizQuestions.length) * 100;
-            document.getElementById('progress-fill').style.width = progressPercent + '%';
-
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-
-            question.options.forEach((option, index) => {
-                const label = document.createElement('label');
-                label.className = 'option';
-                label.innerHTML = `
-                    <input type="radio" name="answer" value="${index}" onchange="selectAnswer(${index})">
-                    <label for="option-${index}">${option}</label>
-                `;
-                container.appendChild(label);
-            });
-
-            document.getElementById('result-message').classList.add('hidden');
-            selectedAnswer = answers[currentQuestion];
-            showResult = false;
-            updateQuizButtons();
+        function selectQuizOption(optionIndex) {
+            appState.quizSelectedOption = optionIndex;
+            renderQuizContent();
         }
 
-        // Select Answer
-        function selectAnswer(index) {
-            selectedAnswer = index;
-            const options = document.querySelectorAll('.option');
-            options.forEach((opt, i) => {
-                if (i === index) {
-                    opt.classList.add('selected');
-                } else {
-                    opt.classList.remove('selected');
-                }
-            });
-        }
-
-        // Submit Answer
-        function submitAnswer() {
-            if (selectedAnswer === null) return;
-
-            const question = quizQuestions[currentQuestion];
-            const isCorrect = selectedAnswer === question.correctAnswer;
-
-            answers[currentQuestion] = selectedAnswer;
-
-            if (isCorrect) {
-                score += question.points;
-            }
-
-            showResult = true;
-            displayResult(isCorrect, question);
-            updateQuizButtons();
-        }
-
-        // Display Result
-        function displayResult(isCorrect, question) {
-            const resultDiv = document.getElementById('result-message');
-            resultDiv.classList.remove('hidden');
-            
-            if (isCorrect) {
-                resultDiv.className = 'result-message correct';
-                resultDiv.innerHTML = `
-                    <div class="icon">✓</div>
-                    <div class="content">
-                        <h4>Resposta Correta!</h4>
-                        <p>Você ganhou ${question.points} pontos</p>
-                    </div>
-                `;
-            } else {
-                resultDiv.className = 'result-message incorrect';
-                resultDiv.innerHTML = `
-                    <div class="icon">✗</div>
-                    <div class="content">
-                        <h4>Resposta Incorreta</h4>
-                        <p>A resposta correta é: ${question.options[question.correctAnswer]}</p>
-                    </div>
-                `;
-            }
-
-            document.getElementById('current-score').textContent = score;
-        }
-
-        // Update Quiz Buttons
-        function updateQuizButtons() {
-            const buttonsDiv = document.getElementById('quiz-buttons');
-            
-            if (!showResult) {
-                buttonsDiv.innerHTML = '<button class="btn-primary" onclick="submitAnswer()">Confirmar Resposta</button>';
-            } else {
-                let html = '';
-                if (currentQuestion > 0) {
-                    html += '<button class="btn-secondary" onclick="previousQuestion()">← Anterior</button>';
-                }
-                if (currentQuestion === quizQuestions.length - 1) {
-                    html += '<button class="btn-primary" onclick="finishQuiz()">Finalizar →</button>';
-                } else {
-                    html += '<button class="btn-primary" onclick="nextQuestion()">Próxima →</button>';
-                }
-                buttonsDiv.innerHTML = html;
-            }
-        }
-
-        // Next Question
-        function nextQuestion() {
-            if (currentQuestion < quizQuestions.length - 1) {
-                currentQuestion++;
-                loadQuestion();
-            }
-        }
-
-        // Previous Question
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                loadQuestion();
-            }
-        }
-
-        // Finish Quiz
-        function finishQuiz() {
-            const correctCount = answers.filter((ans, idx) => ans === quizQuestions[idx].correctAnswer).length;
-            document.getElementById('final-score').textContent = score;
-            document.getElementById('correct-count').textContent = correctCount;
-            showScreen('results-screen');
-        }
-
-        // Go to Store
-        function goToStore() {
-            selectedBibles = [];
-            document.getElementById('store-points').textContent = score;
-            renderBibles();
-            showScreen('store-screen');
-        }
-
-        // Render Bibles
-        function renderBibles() {
-            const grid = document.getElementById('bibles-grid');
-            grid.innerHTML = '';
-
-            bibles.forEach(bible => {
-                const canAfford = score >= bible.cost;
-                const isSelected = selectedBibles.includes(bible.id);
-                
-                const card = document.createElement('div');
-                card.className = 'bible-card';
-                if (isSelected) card.classList.add('selected');
-                if (!canAfford) card.classList.add('not-affordable');
-                if (canAfford) card.classList.add('affordable');
-                
-                card.onclick = () => selectBible(bible.id);
-                
-                card.innerHTML = `
-                    <div class="bible-icon">${bible.icon}</div>
-                    <div class="bible-name">${bible.name}</div>
-                    <div class="bible-description">${bible.description}</div>
-                    <div class="bible-cost">${bible.cost} pts</div>
-                    ${isSelected ? '<div class="selected-indicator">✓ Selecionada</div>' : ''}
-                `;
-                
-                grid.appendChild(card);
-            });
-
-            renderSummary();
-        }
-
-        // Select Bible
-        function selectBible(bibleId) {
-            const bible = bibles.find(b => b.id === bibleId);
-            if (!bible || score < bible.cost) return;
-
-            if (selectedBibles.includes(bibleId)) {
-                selectedBibles = selectedBibles.filter(id => id !== bibleId);
-            } else {
-                selectedBibles.push(bibleId);
-            }
-
-            renderBibles();
-        }
-
-        // Render Summary
-        function renderSummary() {
-            const container = document.getElementById('summary-container');
-            
-            if (selectedBibles.length === 0) {
-                container.innerHTML = '';
+        function nextQuizQuestion() {
+            if (appState.quizSelectedOption === null) {
+                showNotification('⚠️ Selecione uma opção para continuar');
                 return;
             }
 
-            const totalCost = selectedBibles.reduce((acc, id) => {
-                const bible = bibles.find(b => b.id === id);
-                return acc + (bible?.cost || 0);
-            }, 0);
-
-            const remaining = score - totalCost;
-
-            let html = '<div class="summary-card"><h3>Resumo do Resgate</h3>';
+            const currentQuestion = quizQuestions[appState.quizCurrentQuestion];
+            const selectedOption = currentQuestion.options[appState.quizSelectedOption];
             
-            selectedBibles.forEach(bibleId => {
-                const bible = bibles.find(b => b.id === bibleId);
-                html += `<div class="summary-item"><span>${bible.name}</span><span>-${bible.cost} pts</span></div>`;
+            appState.quizAnswers.push({
+                questionId: currentQuestion.id,
+                value: selectedOption.value,
+                category: selectedOption.category
             });
 
-            html += `<div class="summary-total ${remaining < 0 ? 'negative' : ''}">
-                <span>Total:</span>
-                <span>${remaining} pts restantes</span>
-            </div></div>`;
-
-            html += '<button class="btn-success btn-full" onclick="confirmRedeem()">Confirmar Resgate</button>';
-
-            container.innerHTML = html;
-        }
-
-        // ========================================
-        // CONFIGURE SEU LINK AQUI
-        // ========================================
-        const REDIRECT_LINK = 'https://seu-link-aqui.com';
-        // Exemplos:
-        // const REDIRECT_LINK = 'https://seu-site.com';
-        // const REDIRECT_LINK = 'https://wa.me/5511999999999';
-        // const REDIRECT_LINK = 'https://seu-email@gmail.com';
-        // const REDIRECT_LINK = 'https://formulario.com';
-        // ========================================
-
-        // Confirm Redeem
-        function confirmRedeem() {
-            alert(`Parabéns! Você resgatou ${selectedBibles.length} Bíblia(s) com sucesso!`);
-            // Redirecionar para o link configurado
-            if (REDIRECT_LINK && REDIRECT_LINK !== 'https://seu-link-aqui.com') {
-                window.location.href = REDIRECT_LINK;
+            if (appState.quizCurrentQuestion < quizQuestions.length - 1) {
+                appState.quizCurrentQuestion++;
+                appState.quizSelectedOption = null;
+                renderQuizContent();
             } else {
-                alert('⚠️ Link não configurado! Edite o arquivo HTML e adicione seu link na variável REDIRECT_LINK');
-                finishStore();
+                calculateQuizResult();
             }
         }
 
-        // Finish Store
-        function finishStore() {
-            currentQuestion = 0;
-            score = 0;
-            answers = new Array(quizQuestions.length).fill(null);
-            selectedAnswer = null;
-            showResult = false;
-            selectedBibles = [];
-            showScreen('intro-screen');
+        function previousQuizQuestion() {
+            if (appState.quizCurrentQuestion > 0) {
+                appState.quizCurrentQuestion--;
+                appState.quizSelectedOption = null;
+                renderQuizContent();
+            }
         }
+
+        function calculateQuizResult() {
+            const blockageScores = {
+                metabolic: 0,
+                emotional: 0,
+                digestive: 0,
+                hormonal: 0,
+                behavioral: 0
+            };
+
+            appState.quizAnswers.forEach(answer => {
+                blockageScores[answer.category] += answer.value;
+            });
+
+            let dominantBlockage = Object.keys(blockageScores).reduce((a, b) => 
+                blockageScores[a] > blockageScores[b] ? a : b
+            );
+
+            const blockageTitles = {
+                metabolic: 'Travamento Metabólico',
+                emotional: 'Travamento Emocional',
+                digestive: 'Travamento Digestivo',
+                hormonal: 'Travamento Hormonal',
+                behavioral: 'Travamento Comportamental'
+            };
+
+            const blockageDescriptions = {
+                metabolic: 'Seu metabolismo está lento e precisa ser reativado com a combinação certa de nutrientes e suplementação.',
+                emotional: 'Sua relação com a comida está ligada às emoções. O Kit Pro3 ajuda a controlar esses impulsos.',
+                digestive: 'Seu sistema digestivo não está funcionando bem. Precisamos restaurar a saúde intestinal.',
+                hormonal: 'Seus hormônios estão desregulados. A suplementação estratégica pode rebalanceá-los.',
+                behavioral: 'Você está no caminho certo! Pequenos ajustes nos hábitos farão toda a diferença.'
+            };
+
+            appState.quizResult = {
+                dominantBlockage,
+                blockageTitle: blockageTitles[dominantBlockage],
+                blockageDescription: blockageDescriptions[dominantBlockage],
+                scores: blockageScores,
+                totalScore: appState.quizAnswers.reduce((a, b) => a + b.value, 0)
+            };
+
+            appState.quizCompleted = true;
+            renderQuizContent();
+        }
+
+        function renderQuizContent() {
+            const content = document.getElementById('main-content');
+
+            if (!appState.quizStarted) {
+                content.innerHTML = `
+                    <div class="tab-content quiz-container space-y-4">
+                        <div class="hero">
+                            <h2>Quiz de Diagnóstico</h2>
+                            <p>Descubra qual é o seu tipo de travamento de emagrecimento</p>
+                            <div class="hero-image">📋</div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Como funciona?</h3>
+                            <p>Responda 10 perguntas rápidas sobre seus hábitos e receba um diagnóstico completo com recomendações personalizadas.</p>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="startQuiz()">Iniciar Quiz Agora</button>
+                        <button class="btn btn-secondary" onclick="switchTab('depo')">Ver Depoimentos</button>
+                    </div>
+                `;
+            } else if (appState.quizResult) {
+                // Mostrar resultado
+                const result = appState.quizResult;
+                content.innerHTML = `
+                    <div class="tab-content quiz-container space-y-4">
+                        <div class="quiz-result">
+                            <h2>🎉 Seu Diagnóstico Está Pronto!</h2>
+                            <div class="quiz-result-badge">${result.blockageTitle}</div>
+                            <p class="quiz-result-text">${result.blockageDescription}</p>
+
+                            <div class="quiz-result-stats">
+                                <div class="quiz-result-stat">
+                                    <div class="quiz-result-stat-label">Pontuação Total</div>
+                                    <div class="quiz-result-stat-value">${result.totalScore}/30</div>
+                                </div>
+                                <div class="quiz-result-stat">
+                                    <div class="quiz-result-stat-label">Intensidade</div>
+                                    <div class="quiz-result-stat-value">${result.totalScore > 20 ? 'Alta' : result.totalScore > 10 ? 'Média' : 'Baixa'}</div>
+                                </div>
+                            </div>
+
+                            <p class="quiz-result-text">
+                                ✨ <strong>A boa notícia:</strong> Agora que você sabe exatamente qual é o seu bloqueio, você pode tratá-lo de forma direcionada. O Kit Pro3 foi desenvolvido especificamente para resolver esses 5 tipos de travamento.
+                            </p>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="switchTab('checkout')">Adquirir Kit Pro3 Agora</button>
+                        <button class="btn btn-secondary" onclick="resetQuiz()">Refazer Quiz</button>
+                    </div>
+                `;
+            } else {
+                // Mostrar pergunta
+                const question = quizQuestions[appState.quizCurrentQuestion];
+                const progress = ((appState.quizCurrentQuestion + 1) / quizQuestions.length) * 100;
+
+                content.innerHTML = `
+                    <div class="tab-content quiz-container space-y-4">
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-bar">
+                                <div class="quiz-progress-fill" style="width: ${progress}%"></div>
+                            </div>
+                            <div class="quiz-progress-text">Pergunta ${appState.quizCurrentQuestion + 1} de ${quizQuestions.length}</div>
+                        </div>
+
+                        <div class="quiz-header">
+                            <h2 class="quiz-question">${question.question}</h2>
+                        </div>
+
+                        <div class="quiz-options">
+                            ${question.options.map((option, index) => `
+                                <button class="quiz-option ${appState.quizSelectedOption === index ? 'selected' : ''}" 
+                                        onclick="selectQuizOption(${index})">
+                                    ${option.text}
+                                </button>
+                            `).join('')}
+                        </div>
+
+                        <div class="quiz-buttons">
+                            <button class="btn btn-secondary" onclick="previousQuizQuestion()" 
+                                    ${appState.quizCurrentQuestion === 0 ? 'disabled' : ''}>
+                                ← Voltar
+                            </button>
+                            <button class="btn btn-primary" onclick="nextQuizQuestion()" 
+                                    ${appState.quizSelectedOption === null ? 'disabled' : ''}>
+                                ${appState.quizCurrentQuestion === quizQuestions.length - 1 ? 'Ver Resultado' : 'Próxima'} →
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function resetQuiz() {
+            appState.quizStarted = false;
+            appState.quizCurrentQuestion = 0;
+            appState.quizAnswers = [];
+            appState.quizSelectedOption = null;
+            appState.quizResult = null;
+            appState.quizCompleted = false;
+            renderQuizContent();
+            renderNavbar();
+        }
+
+        // ===== FUNÇÕES PRINCIPAIS =====
+        function renderNavbar() {
+            const navbar = document.getElementById('navbar');
+            navbar.innerHTML = tabs.map(tab => {
+                const isDisabled = !appState.quizCompleted && tab.id !== 'quiz';
+                return `
+                    <button class="nav-btn ${tab.id === appState.currentTab ? 'active' : ''}" 
+                            onclick="${isDisabled ? "showNotification('❌ Complete o quiz primeiro!')" : `switchTab('${tab.id}')`}"
+                            style="${isDisabled ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
+                        <span>${tab.icon}</span>
+                        <span>${tab.label}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderContent() {
+            const content = document.getElementById('main-content');
+            
+            if (appState.currentTab === 'quiz') {
+                renderQuizContent();
+            } else if (appState.currentTab === 'inicio') {
+                content.innerHTML = renderInicio();
+            } else if (appState.currentTab === 'modulos') {
+                content.innerHTML = renderModulos();
+            } else if (appState.currentTab === 'kit') {
+                content.innerHTML = renderKit();
+            } else if (appState.currentTab === 'depo') {
+                content.innerHTML = renderDepoimentos();
+            } else if (appState.currentTab === 'checkout') {
+                content.innerHTML = renderCheckout();
+            } else if (appState.currentTab === 'diario') {
+                content.innerHTML = renderDiario();
+            }
+        }
+
+        function renderInicio() {
+            return `
+                <div class="tab-content space-y-4">
+                    <div class="hero">
+                        <h2>Seu Projeto de Emagrecimento em 30 Dias</h2>
+                        <p>Acompanhe módulos, lições diárias e veja exatamente como o Kit Pro3 acelera seus resultados.</p>
+                        <div class="hero-image">💪</div>
+                        <button class="btn btn-primary" onclick="switchTab('quiz')">Começar Meu Diagnóstico</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>✨ O que você vai receber:</h3>
+                        <p>✓ Diagnóstico personalizado<br>✓ Plano de 30 dias<br>✓ Suplementação completa<br>✓ Tarefas diárias<br>✓ Suporte 24/7</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Seus Objetivos</h3>
+                        <p>Perder peso • Ganhar energia • Melhorar saúde • Aumentar disposição</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 30%;"></div>
+                        </div>
+                        <p class="text-sm text-muted">30% do caminho completo</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>📊 Estatísticas</h3>
+                        <p>👥 10.000+ pessoas já transformaram suas vidas<br>⭐ 4.9/5 avaliação média<br>📈 Média de 8kg perdidos em 30 dias</p>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="switchTab('checkout')">Adquirir Kit Pro3 Agora</button>
+                </div>
+            `;
+        }
+
+        function renderModulos() {
+            return `
+                <div class="tab-content space-y-6">
+                    <h2 class="text-2xl font-bold">Módulos do Método 30 Dias</h2>
+                    ${modulos.map(mod => `
+                        <div class="modulo-card">
+                            <h3>${mod.titulo}</h3>
+                            <p>${mod.descricao}</p>
+                        </div>
+                    `).join('')}
+                    <button class="btn btn-primary" onclick="switchTab('checkout')">Desbloquear Todos os Módulos</button>
+                </div>
+            `;
+        }
+
+        function renderKit() {
+            return `
+                <div class="tab-content space-y-6">
+                    <h2 class="text-2xl font-bold">Como o Kit Pro3 Atua no Seu Corpo</h2>
+                    <p class="text-muted">O Kit Pro3 trabalha em 3 frentes essenciais do emagrecimento: metabolismo, controle de apetite e equilíbrio energético. Tudo isso com ingredientes aprovados pela Anvisa e combinados em um protocolo de 30 dias.</p>
+                    
+                    <div class="grid grid-2">
+                        ${beneficios.map(ben => `
+                            <div class="benefit-card ${ben.classe}">
+                                <h3>${ben.emoji} ${ben.titulo}</h3>
+                                <p>${ben.descricao}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="card">
+                        <h3>🔬 Ingredientes Científicos</h3>
+                        <p>✓ Fibra Psyllium (digestão)<br>✓ Laranja Moro (antioxidante)<br>✓ Spirulina (proteína)<br>✓ Cafeína (energia)<br>✓ Cromo (controle glicêmico)<br>✓ Magnésio (sono e energia)</p>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="switchTab('checkout')">Ver Benefícios Completos</button>
+                </div>
+            `;
+        }
+
+        function renderDepoimentos() {
+            return `
+                <div class="tab-content space-y-6">
+                    <h2 class="text-2xl font-bold">Depoimentos Reais</h2>
+                    <p class="text-muted">Veja histórias de transformação de pessoas como você:</p>
+                    
+                    ${depoimentos.map(dep => `
+                        <div class="testimonial">
+                            <div class="stars">${'⭐'.repeat(dep.stars)}</div>
+                            <p class="testimonial-text">"${dep.texto}"</p>
+                            <p class="testimonial-author">— ${dep.autor}</p>
+                        </div>
+                    `).join('')}
+
+                    <button class="btn btn-primary" onclick="switchTab('checkout')">Quero Minha Transformação</button>
+                </div>
+            `;
+        }
+
+        function renderCheckout() {
+            return `
+                <div class="tab-content checkout-section space-y-4">
+                    <div class="checkout-hero">
+                        <h1>Kit Pro3Magnésio</h1>
+                        <p class="subtitle">Picolinato de Cromo - Fit Slim</p>
+                        
+                        <div style="margin: 1.5rem 0; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <img src="https://alwaysfit.com.br/cdn/shop/files/WhatsAppImage2025-09-19at13.54.43_800x.jpg?v=1758300992" alt="Kit Pro3Magnésio" style="width: 100%; height: auto; display: block;">
+                        </div>
+                        
+                        <div class="rating">
+                            <div class="stars">
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                            </div>
+                            <span class="rating-text">97% Satisfação Total</span>
+                        </div>
+
+                        <p>Combinação poderosa de Pro3Magnésio, Picolinato de Cromo e Fit Slim para suportar seu bem-estar e saúde metabólica.</p>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-center">Escolha seu Kit</h2>
+
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <h3>1 KIT</h3>
+                            <p class="plan-type">Opção Individual</p>
+                            <div class="original-price">R$ 162,90</div>
+                            <div class="price">R$ 89,71</div>
+                            <p class="price-per-unit">Por kit</p>
+                            <a href="https://compraseguraonline.org.ua/c/c20a3abf11" target="_blank" rel="noopener noreferrer" class="buy-btn-checkout secondary">
+                                🛒 Comprar Agora
+                            </a>
+                        </div>
+
+                        <div class="pricing-card featured">
+                            <h3>2 KITs</h3>
+                            <p class="plan-type">Opção Popular</p>
+                            <div class="original-price">R$ 234,70</div>
+                            <div class="price">R$ 149,45</div>
+                            <p class="price-per-unit">R$ 74,72 por kit</p>
+                            <a href="https://compraseguraonline.org.ua/c/be0ee9f943" target="_blank" rel="noopener noreferrer" class="buy-btn-checkout">
+                                🛒 Comprar Agora
+                            </a>
+                        </div>
+
+                        <div class="pricing-card">
+                            <h3>3 KITs</h3>
+                            <p class="plan-type">Opção Premium</p>
+                            <div class="original-price">R$ 352,90</div>
+                            <div class="price">R$ 204,22</div>
+                            <p class="price-per-unit">R$ 68,07 por kit</p>
+                            <a href="https://compraseguraonline.org.ua/c/19343b3ee5" target="_blank" rel="noopener noreferrer" class="buy-btn-checkout secondary">
+                                🛒 Comprar Agora
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="cashback-banner">
+                        <p>💰 25% de Cashback em sua primeira compra!</p>
+                        <p class="subtext">Aproveite nossa promoção exclusiva</p>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-center mt-6 mb-4">Composição Completa</h2>
+                    
+                    <div class="grid grid-2" style="gap: 1rem;">
+                        <div style="border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <img src="https://alwaysfit.com.br/cdn/shop/files/alwaysfit-selonpa-picolinato_11zon_1_800x.webp?v=1762804343" alt="Picolinato de Cromo" style="width: 100%; height: auto; display: block;">
+                        </div>
+                        <div style="border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <img src="https://alwaysfit.com.br/cdn/shop/files/alwaysfit-pro3magnesio-selonpa_800x.webp?v=1762804589" alt="Pro3Magnésio" style="width: 100%; height: auto; display: block;">
+                        </div>
+                        <div style="border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <img src="https://alwaysfit.com.br/cdn/shop/files/alwaysfit-tabela-nutricional-fitslim_ad8cb623-a0c2-4fdf-b6fa-baa1714398b6_800x.webp?v=1745349719" alt="Fit Slim" style="width: 100%; height: auto; display: block;">
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-center mt-6 mb-4">Tabelas Nutricionais</h2>
+                    
+                    <div class="grid grid-2" style="gap: 1rem;">
+                        <div style="border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <img src="https://alwaysfit.com.br/cdn/shop/files/alwaysfit-tabela-nutricional-PICOLINATODECROMO_800x.webp?v=1762804343" alt="Tabela Nutricional Picolinato" style="width: 100%; height: auto; display: block;">
+                        </div>
+                        <div style="border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <img src="https://alwaysfit.com.br/cdn/shop/files/alwaysfit-tabela-nutricional-pro3_11zon_800x.webp?v=1758302191" alt="Tabela Nutricional Pro3" style="width: 100%; height: auto; display: block;">
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderDiario() {
+            const tarefa = tarefasDiarias[appState.currentDay - 1] || tarefasDiarias[0];
+            const proximaTarefa = tarefasDiarias[appState.currentDay] || tarefasDiarias[0];
+            
+            return `
+                <div class="tab-content space-y-4">
+                    <div class="daily-task">
+                        <div class="day-counter">Dia ${appState.currentDay} de 30</div>
+                        <h3>📅 Tarefa de Hoje</h3>
+                        <p>${tarefa}</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>✅ Marcar como Concluído</h3>
+                        <p>Você completou a tarefa de hoje?</p>
+                        <button class="btn btn-primary" onclick="completeDay()">Sim, Completei!</button>
+                    </div>
+
+                    <div class="card">
+                        <h3>📈 Seu Progresso</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${(appState.currentDay / 30) * 100}%;"></div>
+                        </div>
+                        <p class="text-sm text-muted">${appState.currentDay} de 30 dias completos</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Próxima Tarefa</h3>
+                        <p>${proximaTarefa}</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>💡 Dica do Dia</h3>
+                        <p>Beba pelo menos 2 litros de água hoje. A hidratação é essencial para o metabolismo e ajuda a reduzir a fome!</p>
+                    </div>
+
+                    <button class="btn btn-accent" onclick="nextDay()">Ir para Próximo Dia</button>
+                </div>
+            `;
+        }
+
+        // ===== FUNÇÕES DE AÇÃO =====
+        function switchTab(tabId) {
+            appState.currentTab = tabId;
+            renderNavbar();
+            renderContent();
+        }
+
+        function completeDay() {
+            showNotification('🎉 Dia ' + appState.currentDay + ' completado! Excelente trabalho!');
+            setTimeout(() => {
+                nextDay();
+            }, 1000);
+        }
+
+        function nextDay() {
+            if (appState.currentDay < 30) {
+                appState.currentDay++;
+                renderContent();
+                showNotification('📅 Dia ' + appState.currentDay + ' desbloqueado!');
+            } else {
+                showNotification('🏆 Parabéns! Você completou os 30 dias! Transformação alcançada!');
+            }
+        }
+
+        function showNotification(message) {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                ${message}
+                <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            container.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+
+        // ===== INICIALIZAR =====
+        renderNavbar();
+        renderContent();
+
+        setTimeout(() => {
+            showNotification('👋 Bem-vindo ao Kit Pro3! Complete o quiz para desbloquear a plataforma.');
+        }, 500);
     </script>
 </body>
 </html>
